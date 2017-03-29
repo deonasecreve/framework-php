@@ -24,22 +24,17 @@ function editStudent()
 
 }
 
-function deleteStudent($id = null) 
+function deleteStudent($id) 
 {
-	if (!$id) {
-		return false;
-	}
 	
 	$db = openDatabaseConnection();
 
-	$sql = "DELETE FROM students WHERE student_id=:id ";
+	$sql = "DELETE FROM patient WHERE id=:id ";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':id' => $id));
 
 	$db = null;
-	
-	return true;
 }
 
 function createStudent() 
