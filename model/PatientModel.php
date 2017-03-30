@@ -33,6 +33,7 @@ function createPatient()
 	$species = isset($_POST['species']) ? $_POST['species'] : null;
 	$gender = isset($_POST['gender']) ? $_POST['gender'] : null;
 	$status = isset($_POST['status']) ? $_POST['status'] : null;
+	$client = isset($_POST['client']) ? $_POST['client'] : null;
 
 
 	
@@ -42,39 +43,76 @@ function createPatient()
 	
 	$db = openDatabaseConnection();
 
-	$sql = "INSERT INTO patient(name, species, gender, status) VALUES (:name, :species, :gender, :status)";
+	$sql = "INSERT INTO patient(name, species, gender, status, client_id) VALUES (:name, :species, :gender, :status, :client_id)";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':name' => $name,
 		':species' => $species,
 		':gender' => $gender,
-		':status' => $status));
+		':status' => $status,
+		':client_id' => $client));
 
 	$db = null;
 	
 	return true;
 }
 
-function updatePatient($id, $name, $species, $gender, $status) 
+function editPatient ($id)
 {
 	$db = openDatabaseConnection();
 
-		$query = "UPDATE patient SET name='$name', species='$species', gender='$gender, status=$status' where id=$id";
-		$result = $db->query($query);
+	$sql = "SELECT * FROM patient WHERE id=:id";
+	$query = $db->prepare($sql);
+	$query->execute(array(
+		':id' => $id
+		));
 
 	$db = null;
 
+	$patients = $query->fetchAll();
+
+	return $patients;
 }
 
-function showUpdatePatient(){
-	$patient = NULL;
-		$db = openDatabaseConnection();
-		$id = $_GET['id'];
+function editPatientSave($id, $name, $species, $gender, $status, $client)
+{
+	$db = openDatabaseConnection();
 
-		$query=$db->prepare("SELECT * FROM patient WHERE id=$id");
-		$query->execute(array($patient));
-		var_dump($id);
-		var_dump($patient);
+	$sql = "UPDATE patient SET name=:name, species=:species, gender=:gender, status=:status, client_id=:client_id WHERE id=:id";
+		$query = $db->prepare($sql);
+		$query->execute(array(
+		':id' => $id,
+		':name' => $name,
+		':species' => $species,
+		':gender' => $gender,
+		':status' => $status,
+		':client_id' => $client));
 
+	$db = NULL;
+}
+
+function sortPatients()
+{
+	$db = openDatabaseConnection();
+
+	if (isset($_GET['sort'])){
+
+	if ($_GET['sort'] == 'name')
+	{
+		$query .= " ORDER BY name";
+	} 
+	 	elseif ($_GET['sort'] == 'species')
+	{
+	 	$query .= " ORDER BY species";
+	} 
+	elseif ($_GET['sort'] == 'gender')
+	{
+	$query .= " ORDER BY gender";
+		}
 	}
+
+	$result = $db->query($query);
+	$patients = $result->fetch_all(MYSQLI_ASSOC);
+
+}
 

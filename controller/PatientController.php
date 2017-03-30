@@ -1,5 +1,6 @@
 <?php
 
+require(ROOT . "model/ClientModel.php");
 require(ROOT . "model/PatientModel.php");
 
 function index()
@@ -21,8 +22,11 @@ function delete($id)
 
 function create()
 {
-	//formulier tonen
-	render("patient/create");
+	$clients = getAllClients();
+	render("patient/create", array(
+		'clients' => $clients
+	));
+
 }
 
 function createSave()
@@ -35,11 +39,30 @@ function createSave()
 	header("Location:" . URL . "patient/index");
 }
 
-function edit()
+function edit($id)
 
 {
-	//formulier tonen
-	render("patient/edit",array(
-	'patients' => showUpdatePatient()
+	$clients = getAllClients();
+	$patients = getAllPatients();
+	array('patients' => $patients);
+	render("patient/edit", array(
+		'clients' => $clients
 	));
+}
+
+function editSave()
+{
+	if (isset($_POST['name']) && isset($_POST['species']) && isset($_POST['gender']) && isset($_POST['status'])) {
+		createPatient($_POST['name'], $_POST['species'], $_POST['gender'], $_POST['status']);
+	}
+
+	header("Location:" . URL . "patient/index");
+}
+
+function sortSave()
+{
+	$patients = sortPatients();
+	render("patient/edit", array(
+		'patients' => $patients
+		));
 }

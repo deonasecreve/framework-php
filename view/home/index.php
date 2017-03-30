@@ -1,4 +1,7 @@
-<div class="container">
- <h1>Welkom bij het php-framework.</h1>
- <p>Je bent nu in home/index.</p>
-</div>
+
+	<h1>Hospital</h1>
+	<ul>
+		<li><a href="<?= URL ?>patient/index">Patiënts</a></li>
+		<li><a href="<?= URL ?>client/index">Clients</a></li>
+		<li><a href="<?= URL ?>species/index">Species</a></li>
+	</ul>
