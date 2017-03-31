@@ -4,6 +4,7 @@
 		<thead>
 			<tr>
 				<th>Name</th>
+				<th>Lastname</th>
 				<th>Address</th>
 			</tr>
 		</thead>
@@ -13,6 +14,7 @@
 ?>
 			<tr>
 				<td><?=$client['name']?></td>
+				<td><?=$client['lastname']?></td>
 				<td><?=$client['address']?></td>
 				<td class="center"><a href="<?= URL ?>client/edit/<?= $client['id'] ?>">edit</a></td>
 				<td class="center"><a href="<?= URL ?>client/delete/<?= $client['id'] ?>">delete</a></td>

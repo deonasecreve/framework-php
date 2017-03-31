@@ -25,7 +25,7 @@
 		</div>
 		<div>
 			<label for="client">Client name:</label>
-			<select>
+			<select name="client">
 			<?php
 				foreach ($clients as $client)
 				{

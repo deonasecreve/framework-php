@@ -8,10 +8,11 @@
 		<div>
 			<label for="species">Species:</label>
 			<select name="species">
-  				<option value="cat">Cat</option>
-  				<option value="dog">Dog</option>
-  				<option value="fish">Fish</option>
-  				<option value="hamster">Hamster</option>
+				<?php
+					foreach ($species as $race) {
+						echo "<option value=\"" . $race['species'] . "\">" . $race['species'] . "</option>";
+					}
+				?>
 			</select>
 		</div>
 		<div>
@@ -23,6 +24,16 @@
 			<label for="status">Status:</label>
 			<textarea id="status" name="status"></textarea>
 		</div>
+		<div>
+			<label for="client">Client name:</label>
+			<select name="client">
+				<?php
+					foreach ($clients as $client) {
+					echo "<option value=\"" . $client['id'] . "\">" . $client['name'] . "</option>";
+					}
+				?>
+
+			</select>
 		<div>
 			<label></label>
 			<input type="submit" value="Save">

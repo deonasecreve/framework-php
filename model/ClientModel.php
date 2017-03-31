@@ -30,6 +30,7 @@ function deleteClient($id)
 function createClient() 
 {
 	$name = isset($_POST['name']) ? $_POST['name'] : null;
+	$lastname = isset($_POST['lastname']) ? $_POST['lastname'] : null;
 	$address = isset($_POST['address']) ? $_POST['address'] : null;
 
 	
@@ -39,10 +40,11 @@ function createClient()
 	
 	$db = openDatabaseConnection();
 
-	$sql = "INSERT INTO client(name, address) VALUES (:name, :address)";
+	$sql = "INSERT INTO client(name, lastname, address) VALUES (:name, :lastname, :address)";
 	$query = $db->prepare($sql);
 	$query->execute(array(
 		':name' => $name,
+		':lastname' => $lastname,
 		':address' => $address));
 
 	$db = null;
@@ -67,16 +69,17 @@ function editClient ($id)
 	return $clients;
 }
 
-function editClientSave($id, $name, $address)
+function editClientSave($id, $name, $lastname, $address)
 {
 	$db = openDatabaseConnection();
 
-	$sql = "UPDATE client SET name=:name, address=:address WHERE id=:id";
+	$sql = "UPDATE client SET name=:name, lastname=:lastname, address=:address WHERE id=:id";
 		$query = $db->prepare($sql);
 		$query->execute(array(
 		':id' => $id,
 		':name' => $name,
-		':address' => $address,
+		':lastname' => $lastname,
+		':address' => $address
 	));
 
 	$db = NULL;

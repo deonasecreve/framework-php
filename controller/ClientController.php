@@ -29,8 +29,8 @@ function create()
 function createSave()
 {
 
-	if (isset($_POST['name']) && isset($_POST['address'])) {
-		createClient($_POST['name'], $_POST['address']);
+	if (isset($_POST['name']) && isset($_POST['lastname']) && isset($_POST['address'])) {
+		createClient($_POST['name'], $_POST['lastname'], $_POST['address']);
 	}
 
 	header("Location:" . URL . "client/index");
@@ -46,8 +46,11 @@ function edit($id)
 
 function editSave()
 {
-	if (isset($_POST['name']) && isset($_POST['address'])) {
-		createClient($_POST['name'], $_POST['address']);
+	if (isset($_POST['name']) 
+		&& isset($_POST['lastname'])
+		&& isset($_POST['address'])) 
+	{
+		createClient($_POST['name'], $_POST['lastname'], $_POST['address'] );
 	}
 
 	header("Location:" . URL . "client/index");

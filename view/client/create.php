@@ -5,6 +5,10 @@
 			<input type="text" id="name" name="name">
 		</div>
 		<div>
+			<label for="lastname">Lastname:</label>
+			<input type="text" id="lastname" name="lastname">
+		</div>
+		<div>
 			<label for="address">Address:</label>
 			<input type="text" id="address" name="address">
 		</div>
